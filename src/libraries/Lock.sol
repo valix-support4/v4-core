@@ -8,10 +8,12 @@ library Lock {
     bytes32 internal constant IS_UNLOCKED_SLOT = 0xc090fc4683624cfc3884e9d8de5eca132f2d0ec062aff75d43c0465d5ceeab23;
 
     function unlock() internal {
+        //ทำการเปลี่ยน transient state IS_UNLOCKED_SLOT = true
         assembly ("memory-safe") {
             // unlock
             tstore(IS_UNLOCKED_SLOT, true)
         }
+        // case 1 กลับไปยังที่ที่เรียกมา นั่นคือ PoolManager.unlock
     }
 
     function lock() internal {

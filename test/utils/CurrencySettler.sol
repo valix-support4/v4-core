@@ -17,20 +17,43 @@ library CurrencySettler {
     /// @param amount Amount to send
     /// @param burn If true, burn the ERC-6909 token, otherwise ERC20-transfer to the PoolManager
     function settle(Currency currency, IPoolManager manager, address payer, uint256 amount, bool burn) internal {
+        // case 1
+        // เรียกมาจาก DeltaReturningHook._settleOrTake
+        // โดย manager = address poolManager
+        // payer = address ของ hook
+        // amount = hookDeltaSpecified = -1e6
+        // burn = false
+
         // for native currencies or burns, calling sync is not required
         // short circuit for ERC-6909 burns to support ERC-6909-wrapped native tokens
         if (burn) {
+            // case 1
+            // if (false)
             manager.burn(payer, currency.toId(), amount);
         } else if (currency.isAddressZero()) {
+            // case 1
+            // if(token 0 address == 0x00)
+            // if(false)
             manager.settle{value: amount}();
         } else {
+            // case 1
+            // ไปเรียก poolManager.sync โดยส่ง currency = address ของ token0
             manager.sync(currency);
+            // case 1
+            // การ sync เป็นการ save ค่า token0.balanceOf(poolManager) เป็น snapshot ไว้
             if (payer != address(this)) {
+                // case 1 
+                // เป็น false
                 IERC20Minimal(Currency.unwrap(currency)).transferFrom(payer, address(manager), amount);
             } else {
+                // case 1 
+                // เข้า else
                 IERC20Minimal(Currency.unwrap(currency)).transfer(address(manager), amount);
             }
+            // case 1
+            // ทำการเรียก PoolManager.settle
             manager.settle();
+            // เก็บค่า 1e6 ใน storage slot key (address ของ hook, token0) ของ PoolManager
         }
     }
 

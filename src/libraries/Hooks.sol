@@ -10,7 +10,7 @@ import {BeforeSwapDelta, BeforeSwapDeltaLibrary} from "../types/BeforeSwapDelta.
 import {IPoolManager} from "../interfaces/IPoolManager.sol";
 import {ParseBytes} from "./ParseBytes.sol";
 import {CustomRevert} from "./CustomRevert.sol";
-
+import {console} from "forge-std/console.sol";
 /// @notice V4 decides whether to invoke specific hooks by inspecting the least significant bits
 /// of the address that the hooks contract is deployed to.
 /// For example, a hooks contract deployed to address: 0x0000000000000000000000000000000000002400
@@ -129,12 +129,39 @@ library Hooks {
     /// @notice performs a hook call using the given calldata on the given hook that doesnt return a delta
     /// @return result The complete data returned by the hook
     function callHook(IHooks self, bytes memory data) internal returns (bytes memory result) {
+        // case 1
+        // เรียกมาจาก function beforeSwap ของ lib นี้
         bool success;
+        // case 1 ทำการ external call 
         assembly ("memory-safe") {
             success := call(gas(), self, 0, add(data, 0x20), mload(data), 0, 0)
+            // call(g, a, v, in, insize, out, outsize)
+            // call contract at address a with input mem[in…(in+insize)) 
+            // providing g gas and v wei and output area mem[out…(out+outsize)) 
+            // returning 0 on error (eg. out of gas) and 1 on success
+
+            // case 1
+            // g = gas()
+            // a = DeltaReturningHook
+            // v = 0
+            // in = add(data, 0x20) = นำ data ไปวาง ใน scratch pad
+            // insize =  mload(data) = size ของ data ใน scratch pad
+            // out = 0
+            // outsize = 0
+            // ได้ data = abi.encodeCall(IHooks.beforeSwap, (msg.sender, key, params, hookData))
+            // สรุปว่าเป็นการ call contract ตาม address hook ที่อยู่ใน PoolKey
+            // นั่นคือ ทำการ call DeltaReturningHook.beforeSwap
+            // โดยมี parameter
+            // {
+            //         address sender = poolManager
+            //         PoolKey calldata key,
+            //         IPoolManager.SwapParams calldata params,
+            //         bytes calldata hookData = ZERO_BYTE
+            // }
         }
         // Revert with FailedHookCall, containing any error message to bubble up
         if (!success) Wrap__FailedHookCall.selector.bubbleUpAndRevertWith(address(self));
+        // case 1 success = true ไม่ revert
 
         // The call was successful, fetch the returned data
         assembly ("memory-safe") {
@@ -252,10 +279,29 @@ library Hooks {
         internal
         returns (int256 amountToSwap, BeforeSwapDelta hookReturn, uint24 lpFeeOverride)
     {
+        // case 1 
+        // เรียกมาจาก PoolManager.swap
+
         amountToSwap = params.amountSpecified;
+        // case 1
+        // ได้ amountToSwap = -100e6
+
+        console.log("params.amountSpecified ");
+        console.logInt(params.amountSpecified);
         if (msg.sender == address(self)) return (amountToSwap, BeforeSwapDeltaLibrary.ZERO_DELTA, lpFeeOverride);
+        console.log("msg.sender ",msg.sender);
+        console.log("address(self) ", address(self));
+        // case 1
+        // msg.sender = PoolSwapTest: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]
+        // address(self) = 0x0000000000000000000000000000000000000088
+        // if (false)
 
         if (self.hasPermission(BEFORE_SWAP_FLAG)) {
+            // case 1
+            // if(true)
+
+            // case 1
+            // ไป call internal function callHook
             bytes memory result = callHook(self, abi.encodeCall(IHooks.beforeSwap, (msg.sender, key, params, hookData)));
 
             // A length of 96 bytes is required to return a bytes4, a 32 byte delta, and an LP fee
@@ -274,6 +320,8 @@ library Hooks {
                 // Update the swap amount according to the hook's return, and check that the swap type doesnt change (exact input/output)
                 if (hookDeltaSpecified != 0) {
                     bool exactInput = amountToSwap < 0;
+                    console.log("hookDeltaSpecified");
+                    console.logInt(hookDeltaSpecified);
                     amountToSwap += hookDeltaSpecified;
                     if (exactInput ? amountToSwap > 0 : amountToSwap < 0) {
                         HookDeltaExceedsSwapAmount.selector.revertWith();

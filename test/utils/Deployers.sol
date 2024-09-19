@@ -222,6 +222,21 @@ contract Deployers {
         uninitializedNativeKey.fee = 100;
     }
 
+        function initializeManagerRoutersAndPoolsWithLiqBall(IHooks hooks) internal {
+        deployFreshManagerAndRouters();
+        // sets the global currencies and key
+        deployMintAndApprove2Currencies();
+        // (key,) = initPoolAndAddLiquidity(currency0, currency1, hooks, 3000, SQRT_PRICE_1_1, ZERO_BYTES);
+        // nestedActionRouter.executor().setKey(key);
+        // (nativeKey,) = initPoolAndAddLiquidityETH(
+        //     CurrencyLibrary.ADDRESS_ZERO, currency1, hooks, 3000, SQRT_PRICE_1_1, ZERO_BYTES, 1 ether
+        // );
+        // uninitializedKey = key;
+        // uninitializedNativeKey = nativeKey;
+        // uninitializedKey.fee = 100;
+        // uninitializedNativeKey.fee = 100;
+    }
+
     /// @notice Helper function for a simple ERC20 swaps that allows for unlimited price impact
     function swap(PoolKey memory _key, bool zeroForOne, int256 amountSpecified, bytes memory hookData)
         internal

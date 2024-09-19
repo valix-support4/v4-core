@@ -86,9 +86,17 @@ library CurrencyLibrary {
     }
 
     function balanceOfSelf(Currency currency) internal view returns (uint256) {
+        // case 1
+        // มาจาก PoolManager.sync
+        // currency = token 0 
         if (currency.isAddressZero()) {
+            // case 1
+            // if(false)
             return address(this).balance;
         } else {
+            // case 1
+            // เข้า else
+            // ได้ token0.balanceOf(poolManager)
             return IERC20Minimal(Currency.unwrap(currency)).balanceOf(address(this));
         }
     }

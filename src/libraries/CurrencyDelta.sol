@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import {Currency} from "../types/Currency.sol";
-
+import {console} from "forge-std/console.sol";
 /// @title a library to store callers' currency deltas in transient storage
 /// @dev this library implements the equivalent of a mapping, as transient storage can only be accessed in assembly
 library CurrencyDelta {
@@ -29,14 +29,26 @@ library CurrencyDelta {
         internal
         returns (int256 previous, int256 next)
     {
+        // case 1
+        // เรียกมาจาก
+        // hook.beforeSwap => ... => PoolManager._accountDelta
+        // currency = address 0
+        // delta = เงินที่ hook จ่ายเข้ามาที่ poolManager = 1e6
+        // target = address ของ hook
         bytes32 hashSlot = _computeSlot(target, currency);
-
+        // case 1
+        // หา storage slot สำหรับ key (address ของ hook, token0)
         assembly ("memory-safe") {
             previous := tload(hashSlot)
         }
+        // case 1 จะได้ previous = 0
+        console.log("previous ");
+        console.logInt(previous);
         next = previous + delta;
+        // case 1 จะได้ next = delta = เงินที่ hook จ่ายเข้ามาที่ poolManager = 1e6
         assembly ("memory-safe") {
             tstore(hashSlot, next)
         }
+        // case 1 จะเก็บค่า 1e6 ใน storage slot key (address ของ hook, token0)
     }
 }

@@ -9,7 +9,7 @@ import {IHooks} from "../interfaces/IHooks.sol";
 import {Hooks} from "../libraries/Hooks.sol";
 import {PoolTestBase} from "./PoolTestBase.sol";
 import {CurrencySettler} from "../../test/utils/CurrencySettler.sol";
-
+import {console} from "forge-std/console.sol";
 contract PoolSwapTest is PoolTestBase {
     using CurrencySettler for Currency;
     using Hooks for IHooks;
@@ -37,6 +37,9 @@ contract PoolSwapTest is PoolTestBase {
         TestSettings memory testSettings,
         bytes memory hookData
     ) external payable returns (BalanceDelta delta) {
+        //case 1
+        // เรียกมาจาก user
+        // ไปทำการเรียก poolManager.unlock
         delta = abi.decode(
             manager.unlock(abi.encode(CallbackData(msg.sender, testSettings, key, params, hookData))), (BalanceDelta)
         );
@@ -46,16 +49,38 @@ contract PoolSwapTest is PoolTestBase {
     }
 
     function unlockCallback(bytes calldata rawData) external returns (bytes memory) {
+        // case 1 
+        // เรียกมาจาก PoolManager.unlock
+        
         require(msg.sender == address(manager));
-
+        // case 1
+        // require(true)
+        
         CallbackData memory data = abi.decode(rawData, (CallbackData));
+        // case 1
+        // data = {
+        //     address sender = user
+        //     TestSettings testSettings;
+        //     PoolKey key;
+        //     IPoolManager.SwapParams params = {
+        //             zeroForOne: true,
+        //             amountSpecified: -100e6,
+        //             sqrtPriceLimitX96: MIN_PRICE_LIMIT
+        //         }
+        //     bytes hookData = ZERO_BYTES
+        // }
 
         (,, int256 deltaBefore0) = _fetchBalances(data.key.currency0, data.sender, address(this));
         (,, int256 deltaBefore1) = _fetchBalances(data.key.currency1, data.sender, address(this));
 
         require(deltaBefore0 == 0, "deltaBefore0 is not equal to 0");
         require(deltaBefore1 == 0, "deltaBefore1 is not equal to 0");
-
+        //case 1
+        // ทั้ง 2 require ผ่าน
+        // แปลว่า ตัว PoolSwapTest จะต้องไม่ติดค้าง token กับ poolManager
+        // และ poolManager จะต้องไม่ติดค้าง token กับ PoolSwapTest
+        
+        // ต่อมาเรียกไปที่ PoolManager.swap
         BalanceDelta delta = manager.swap(data.key, data.params, data.hookData);
 
         (,, int256 deltaAfter0) = _fetchBalances(data.key.currency0, data.sender, address(this));
@@ -98,7 +123,10 @@ contract PoolSwapTest is PoolTestBase {
                 );
             }
         }
-
+        console.log("deltaAfter0 ");
+        console.logInt(deltaAfter0);
+        console.log("deltaAfter1 ");
+        console.logInt(deltaAfter1);
         if (deltaAfter0 < 0) {
             data.key.currency0.settle(manager, data.sender, uint256(-deltaAfter0), data.testSettings.settleUsingBurn);
         }

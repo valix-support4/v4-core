@@ -16,6 +16,7 @@ library Constants {
     uint160 public constant SQRT_PRICE_1000_100 = 250541448375047931186413801569;
     uint160 public constant SQRT_PRICE_1010_100 = 251791039410471229173201122529;
     uint160 public constant SQRT_PRICE_10000_100 = 792281625142643375935439503360;
+    uint160 public constant SQRT_PRICE_1E18_3500E6 = 1339200372865057407898869702401057;
 
     uint256 constant MAX_UINT256 = type(uint256).max;
     uint128 constant MAX_UINT128 = type(uint128).max;

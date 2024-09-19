@@ -1,0 +1,361 @@
+[1]  + done       clear
+[⠊] Compiling...
+[⠊] Compiling 2 files with Solc 0.8.26
+[⠒] Solc 0.8.26 finished in 25.96s
+Compiler run successful with warnings:
+Warning (2072): Unused local variable.
+  --> src/test/ball/HookAddTenPercentToTokenZero.sol:42:38:
+   |
+42 |         (Currency specifiedCurrency, Currency unspecifiedCurrency) = _sortCurrencies(key, params);
+   |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5667): Unused function parameter. Remove or comment out the variable name to silence this warning.
+   --> test/utils/Deployers.sol:225:62:
+    |
+225 |         function initializeManagerRoutersAndPoolsWithLiqBall(IHooks hooks) internal {
+    |                                                              ^^^^^^^^^^^^
+
+
+Ran 1 test for test/ball/testUserGetTokenOneForFree.t.sol:CustomAccountingTest
+[PASS] test_hook_add_token_one() (gas: 10520862)
+Logs:
+  self.slot0.tick() before checking if (tick < tickLower)
+  0
+  previous 
+  0
+  previous 
+  0
+  delta 0 in PoolModifyLiquidityTest.unlockCallback 
+  -5981737760509663
+  delta 1 in PoolModifyLiquidityTest.unlockCallback 
+  -5981737760509663
+  recipient  0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+  paid  5981737760509663
+  previous 
+  -5981737760509663
+  recipient  0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9
+  paid  5981737760509663
+  previous 
+  -5981737760509663
+  file: testUserGetTokenOneForFree.t.sol:48 ~ currency0BalanceOfUserBeforeSwap: 57896044618658097711785492504343953926634992332820282019728726022218804310305
+  file: testUserGetTokenOneForFree.t.sol:50 ~ currency1BalanceOfUserBeforeSwap: 57896044618658097711785492504343953926634992332820282019728786022218804310305
+  file: testUserGetTokenOneForFree.t.sol:52 ~ currency0BalanceOfManagerBeforeSwap: 5981737760509663
+  file: testUserGetTokenOneForFree.t.sol:54 ~ currency1BalanceOfManagerBeforeSwap: 5981737760509663
+  params.amountSpecified 
+  -59817377605096630
+  msg.sender  0x2e234DAe75C793f67A35089C9d99245E1C58470b
+  address(self)  0x0000000000000000000000000000000000000088
+  params.amountSpecified
+  -59817377605096630
+  deltaSpecified
+  -5981737760509663
+  recipient  0x0000000000000000000000000000000000000088
+  paid  5981737760509663
+  previous 
+  0
+  hookDeltaSpecified
+  -5981737760509663
+  amountToSwap 
+  -65799115365606293
+  beforeSwapDelta 
+  -2035479883446581873507274526403918426581517060515299328
+  previous 
+  5981737760509663
+  swapDelta.amount0() 
+  -36598341918746
+  swapDelta.amount1() 
+  5981737760509662
+  previous 
+  0
+  previous 
+  0
+  deltaAfter0 
+  -36598341918746
+  deltaAfter1 
+  5981737760509662
+  recipient  0x2e234DAe75C793f67A35089C9d99245E1C58470b
+  paid  36598341918746
+  previous 
+  -36598341918746
+  previous 
+  5981737760509662
+  file: testUserGetTokenOneForFree.t.sol:65 ~ currency0BalanceOfManagerAfterSwap: 12000073862938072
+  file: testUserGetTokenOneForFree.t.sol:67 ~ currency1BalanceOfManagerAfterSwap: 1
+  file: testUserGetTokenOneForFree.t.sol:59 ~ currency0BalanceOfUserAfterSwap: 57896044618658097711785492504343953926634992332820282019728725985620462391559
+  file: testUserGetTokenOneForFree.t.sol:61 ~ currency1BalanceOfUserAfterSwap: 57896044618658097711785492504343953926634992332820282019728792003956564819967
+
+Traces:
+  [10520862] CustomAccountingTest::test_hook_add_token_one()
+    ├─ [645900] → new HookAddTenPercentToTokenZero@0xDB25A7b768311dE128BBDa7B8426c3f9C74f3240
+    │   └─ ← [Return] 3225 bytes of code
+    ├─ [0] VM::etch(0x0000000000000000000000000000000000000088, 0x60806040526004361015610011575f80fd5b5f803560e01c90816321d0ee70146107b2578163259982e5146107b25781633440d820146106fc578163575e24b41461020d5781636c2bbe7e146102085781639f063efc14610208578163a910f80f1461016d578163b47b2fb11461008f57508063b6a8b0fa1461008a5763e1b4af691461008a575f80fd5b6109e2565b3461016a576101607ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc36011261016a576100c76107b7565b5060a07fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdc36011261016a5760607fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff3c36011261016a576101443567ffffffffffffffff8111610166579061013f600492369084016107da565b50507f0a85dc29000000000000000000000000000000000000000000000000000000008152fd5b5080fd5b80fd5b3461016a576101207ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc36011261016a576101a56107b7565b5060a07fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdc36011261016a576101d86108f9565b5060e4358060020b0361016a576101043567ffffffffffffffff8111610166579061013f600492369084016107da565b61091c565b3461068c576101407ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc36011261068c576102456107b7565b5060a07fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdc36011261068c5760607fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff3c36011261068c576101243567ffffffffffffffff811161068c576102bb9036906004016107da565b505073ffffffffffffffffffffffffffffffffffffffff7f0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f169081330361068c57610304610a7e565b9160e4355f811280941515145f146106cb5761031e610b1e565b93610327610afb565b505b806106bd575b610388575b606083805490604051917f575e24b40000000000000000000000000000000000000000000000000000000083528060801d6fffffffffffffffffffffffffffffffff169060801b1760208301526040820152f35b6103c8604051610399604082610a8d565b601681527f706172616d732e616d6f756e74537065636966696564000000000000000000006020820152610b41565b6103d181610bfa565b600a7fffffffffffffffffffffffffffffffff000000000000000000000000000000005f541691600f0b056fffffffffffffffffffffffffffffffff1617805f55610452604051610423604082610a8d565b600e81527f64656c74615370656369666965640000000000000000000000000000000000006020820152610b41565b600f0b61045e81610bfa565b5f811215610334577f80000000000000000000000000000000000000000000000000000000000000008114610690575f039273ffffffffffffffffffffffffffffffffffffffff168061053157506020906004604051809581937f11da60b40000000000000000000000000000000000000000000000000000000083525af1918215610524576060926104f5575b505b8280610334565b6105169060203d60201161051d575b61050e8183610a8d565b810190610c54565b50826104ec565b503d610504565b50604051903d90823e3d90fd5b92813b1561068c576040517fa58411940000000000000000000000000000000000000000000000000000000081528460048201525f8160248183875af1801561068157610665575b5090602083946044859460405195869384927fa9059cbb00000000000000000000000000000000000000000000000000000000845287600485015260248401525af191821561065a5760209261062d575b506004604051809581937f11da60b40000000000000000000000000000000000000000000000000000000083525af19182156105245760609261060e575b506104ee565b6106269060203d60201161051d5761050e8183610a8d565b5082610608565b61064c90833d8511610653575b6106448183610a8d565b810190610c3c565b50846105ca565b503d61063a565b6040513d85823e3d90fd5b604493505f61067691939293610a8d565b5f9250906020610579565b6040513d5f823e3d90fd5b5f80fd5b7f4e487b71000000000000000000000000000000000000000000000000000000005f52601160045260245ffd5b506106c6610a7e565b61032f565b6106d3610afb565b9373ffffffffffffffffffffffffffffffffffffffff806106f2610b1e565b9616955050610329565b3461068c576101007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc36011261068c576107346107b7565b5060a07fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdc36011261068c576107676108f9565b5060e43567ffffffffffffffff811161068c576107889036906004016107da565b50507f0a85dc29000000000000000000000000000000000000000000000000000000005f5260045ffd5b610808565b6004359073ffffffffffffffffffffffffffffffffffffffff8216820361068c57565b9181601f8401121561068c5782359167ffffffffffffffff831161068c576020838186019501011161068c57565b3461068c576101607ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc36011261068c5760043573ffffffffffffffffffffffffffffffffffffffff8116810361068c575060a07fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdc36011261068c5760807fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff3c36011261068c576101443567ffffffffffffffff811161068c576108ce9036906004016107da565b9050507f0a85dc29000000000000000000000000000000000000000000000000000000005f5260045ffd5b60c4359073ffffffffffffffffffffffffffffffffffffffff8216820361068c57565b3461068c576101a07ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc36011261068c5760043573ffffffffffffffffffffffffffffffffffffffff8116810361068c575060a07fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdc36011261068c5760807fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff3c36011261068c576101843567ffffffffffffffff811161068c576108ce9036906004016107da565b3461068c576101207ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc36011261068c5760043573ffffffffffffffffffffffffffffffffffffffff8116810361068c575060a07fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdc36011261068c576101043567ffffffffffffffff811161068c576108ce9036906004016107da565b60c435801515810361068c5790565b90601f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0910116810190811067ffffffffffffffff821117610ace57604052565b7f4e487b71000000000000000000000000000000000000000000000000000000005f52604160045260245ffd5b60443573ffffffffffffffffffffffffffffffffffffffff8116810361068c5790565b60243573ffffffffffffffffffffffffffffffffffffffff8116810361068c5790565b5f8091604051610be76064827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0601f6020808401977f41304fac0000000000000000000000000000000000000000000000000000000089528160248601528051918291826044880152018686015e888582860101520116810103017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe08101835282610a8d565b51906a636f6e736f6c652e6c6f675afa50565b5f809160405160208101917f4e0c1d1d000000000000000000000000000000000000000000000000000000008352602482015260248152610be7604482610a8d565b9081602091031261068c5751801515810361068c5790565b9081602091031261068c57519056fea2646970667358221220e2c0954d1e858c229e3c69b6d893976cd476cd70f7b7a5d456188d91e444b06e64736f6c634300081a0033)
+    │   └─ ← [Return] 
+    ├─ [37400] PoolManager::initialize(PoolKey({ currency0: 0x13aa49bAc059d709dd0a18D6bb63290076a702D7, currency1: 0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758, fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088 }), 79228162514264337593543950336 [7.922e28], 0x)
+    │   ├─ [2674] ProtocolFeeControllerTest::protocolFeeForPool(PoolKey({ currency0: 0x13aa49bAc059d709dd0a18D6bb63290076a702D7, currency1: 0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758, fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088 }))
+    │   │   └─ ← [Return] 0
+    │   ├─ emit Initialize(id: 0xec8881f217809503e8a880a09db441162b7a05db7f38cb52c61ab0d76a7a9652, currency0: MockERC20: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7], currency1: MockERC20: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088, sqrtPriceX96: 79228162514264337593543950336 [7.922e28], tick: 0)
+    │   └─ ← [Return] 0
+    ├─ [275992] PoolModifyLiquidityTest::modifyLiquidity(PoolKey({ currency0: 0x13aa49bAc059d709dd0a18D6bb63290076a702D7, currency1: 0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758, fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088 }), ModifyLiquidityParams({ tickLower: -120, tickUpper: 120, liquidityDelta: 1000000000000000000 [1e18], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   ├─ [272859] PoolManager::unlock(0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149600000000000000000000000013aa49bac059d709dd0a18d6bb63290076a702d700000000000000000000000096d3f6c20eed2697647f543fe6c08bc2fbf39758000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000088ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8800000000000000000000000000000000000000000000000000000000000000780000000000000000000000000000000000000000000000000de0b6b3a7640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+    │   │   ├─ [270779] PoolModifyLiquidityTest::unlockCallback(0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149600000000000000000000000013aa49bac059d709dd0a18d6bb63290076a702d700000000000000000000000096d3f6c20eed2697647f543fe6c08bc2fbf39758000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000088ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8800000000000000000000000000000000000000000000000000000000000000780000000000000000000000000000000000000000000000000de0b6b3a7640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   ├─ [6952] PoolManager::extsload(0x48bad94eddec1e2717b0473de31b4ab6dc32894450d3a551f9cada49cfd5d7ce, 3) [staticcall]
+    │   │   │   │   └─ ← [Return] [0x0000000000000000000000000000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000000000000000000000000000]
+    │   │   │   ├─ [162780] PoolManager::modifyLiquidity(PoolKey({ currency0: 0x13aa49bAc059d709dd0a18D6bb63290076a702D7, currency1: 0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758, fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088 }), ModifyLiquidityParams({ tickLower: -120, tickUpper: 120, liquidityDelta: 1000000000000000000 [1e18], salt: 0x0000000000000000000000000000000000000000000000000000000000000000 }), 0x)
+    │   │   │   │   ├─ [0] console::log("self.slot0.tick() before checking if (tick < tickLower)") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(0) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ emit ModifyLiquidity(id: 0xec8881f217809503e8a880a09db441162b7a05db7f38cb52c61ab0d76a7a9652, sender: PoolModifyLiquidityTest: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], tickLower: -120, tickUpper: 120, liquidityDelta: 1000000000000000000 [1e18], salt: 0x0000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(0) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(0) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   └─ ← [Return] -2035479883446581533224907605465454963212891366507597535 [-2.035e54], 0
+    │   │   │   ├─ [952] PoolManager::extsload(0x48bad94eddec1e2717b0473de31b4ab6dc32894450d3a551f9cada49cfd5d7ce, 3) [staticcall]
+    │   │   │   │   └─ ← [Return] [0x0000000000000000000000000000000000000000000000000de0b6b3a7640000, 0x0000000000000000000000000000000000000000000000000000000000000000, 0x0000000000000000000000000000000000000000000000000000000000000000]
+    │   │   │   ├─ [2525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728792003956564819968 [5.789e76]
+    │   │   │   ├─ [2525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [859] PoolManager::exttload(0xf8b22c83faca0f021e8de8f30fde6b09075ab6a4cd2465cc4516b223b974953c) [staticcall]
+    │   │   │   │   └─ ← [Return] 0xffffffffffffffffffffffffffffffffffffffffffffffffffeabfa425a53121
+    │   │   │   ├─ [2525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728792003956564819968 [5.789e76]
+    │   │   │   ├─ [2525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   ├─ [859] PoolManager::exttload(0x973714d76b6ff303dd90cf2f5f480f30e7b5416dcf6cf55cdecec04cc7c2946e) [staticcall]
+    │   │   │   │   └─ ← [Return] 0xffffffffffffffffffffffffffffffffffffffffffffffffffeabfa425a53121
+    │   │   │   ├─ [0] console::log("delta 0 in PoolModifyLiquidityTest.unlockCallback ") [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [0] console::log(-5981737760509663 [-5.981e15]) [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [0] console::log("delta 1 in PoolModifyLiquidityTest.unlockCallback ") [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [0] console::log(-5981737760509663 [-5.981e15]) [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [2020] PoolManager::sync(MockERC20: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7])
+    │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [27702] MockERC20::transferFrom(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 5981737760509663 [5.981e15])
+    │   │   │   │   ├─ emit Transfer(from: CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 5981737760509663 [5.981e15])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4570] PoolManager::settle()
+    │   │   │   │   ├─ [0] console::log("recipient ", PoolModifyLiquidityTest: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   │   ├─ [0] console::log("paid ", 5981737760509663 [5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-5981737760509663 [-5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   ├─ [2020] PoolManager::sync(MockERC20: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758])
+    │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [27702] MockERC20::transferFrom(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 5981737760509663 [5.981e15])
+    │   │   │   │   ├─ emit Transfer(from: CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 5981737760509663 [5.981e15])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4570] PoolManager::settle()
+    │   │   │   │   ├─ [0] console::log("recipient ", PoolModifyLiquidityTest: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   │   ├─ [0] console::log("paid ", 5981737760509663 [5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-5981737760509663 [-5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   └─ ← [Return] 0xffffffffffffffffffeabfa425a53121ffffffffffffffffffeabfa425a53121
+    │   │   └─ ← [Return] 0xffffffffffffffffffeabfa425a53121ffffffffffffffffffeabfa425a53121
+    │   └─ ← [Return] -2035479883446581533224907605465454963212891366507597535 [-2.035e54]
+    ├─ [24752] MockERC20::transfer(0x0000000000000000000000000000000000000088, 60000000000000000 [6e16])
+    │   ├─ emit Transfer(from: CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: 0x0000000000000000000000000000000000000088, amount: 60000000000000000 [6e16])
+    │   └─ ← [Return] true
+    ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728726022218804310305 [5.789e76]
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:48 ~ currency0BalanceOfUserBeforeSwap:", 57896044618658097711785492504343953926634992332820282019728726022218804310305 [5.789e76]) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728786022218804310305 [5.789e76]
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:50 ~ currency1BalanceOfUserBeforeSwap:", 57896044618658097711785492504343953926634992332820282019728786022218804310305 [5.789e76]) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 5981737760509663 [5.981e15]
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:52 ~ currency0BalanceOfManagerBeforeSwap:", 5981737760509663 [5.981e15]) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 5981737760509663 [5.981e15]
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:54 ~ currency1BalanceOfManagerBeforeSwap:", 5981737760509663 [5.981e15]) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [9387278] PoolSwapTest::swap(PoolKey({ currency0: 0x13aa49bAc059d709dd0a18D6bb63290076a702D7, currency1: 0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758, fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088 }), SwapParams({ zeroForOne: true, amountSpecified: -59817377605096630 [-5.981e16], sqrtPriceLimitX96: 4295128740 [4.295e9] }), TestSettings({ takeClaims: false, settleUsingBurn: false }), 0x)
+    │   ├─ [9384130] PoolManager::unlock(0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000013aa49bac059d709dd0a18d6bb63290076a702d700000000000000000000000096d3f6c20eed2697647f543fe6c08bc2fbf397580000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000880000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffffffffffffffffffffff2b7c697873eb4a00000000000000000000000000000000000000000000000000000001000276a400000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000)
+    │   │   ├─ [9382056] PoolSwapTest::unlockCallback(0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e14960000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000013aa49bac059d709dd0a18d6bb63290076a702d700000000000000000000000096d3f6c20eed2697647f543fe6c08bc2fbf397580000000000000000000000000000000000000000000000000000000000000064000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000880000000000000000000000000000000000000000000000000000000000000001ffffffffffffffffffffffffffffffffffffffffffffffffff2b7c697873eb4a00000000000000000000000000000000000000000000000000000001000276a400000000000000000000000000000000000000000000000000000000000001800000000000000000000000000000000000000000000000000000000000000000)
+    │   │   │   ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728726022218804310305 [5.789e76]
+    │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   ├─ [859] PoolManager::exttload(0xc4607c572d15c02c9d5e3c9a699d7cae5085ac35127a07e6f45e370fb2cd8852) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728786022218804310305 [5.789e76]
+    │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   ├─ [859] PoolManager::exttload(0xafb78a466bfbede229e8d3ab04155194c9cffa88c40c7132e6ca03b19c2d736c) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    │   │   │   ├─ [9344719] PoolManager::swap(PoolKey({ currency0: 0x13aa49bAc059d709dd0a18D6bb63290076a702D7, currency1: 0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758, fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088 }), SwapParams({ zeroForOne: true, amountSpecified: -59817377605096630 [-5.981e16], sqrtPriceLimitX96: 4295128740 [4.295e9] }), 0x)
+    │   │   │   │   ├─ [0] console::log("params.amountSpecified ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-59817377605096630 [-5.981e16]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("msg.sender ", PoolSwapTest: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("address(self) ", 0x0000000000000000000000000000000000000088) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [35738] 0x0000000000000000000000000000000000000088::beforeSwap(PoolSwapTest: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], PoolKey({ currency0: 0x13aa49bAc059d709dd0a18D6bb63290076a702D7, currency1: 0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758, fee: 100, tickSpacing: 2, hooks: 0x0000000000000000000000000000000000000088 }), SwapParams({ zeroForOne: true, amountSpecified: -59817377605096630 [-5.981e16], sqrtPriceLimitX96: 4295128740 [4.295e9] }), 0x)
+    │   │   │   │   │   ├─ [0] console::log("params.amountSpecified") [staticcall]
+    │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   ├─ [0] console::log(-59817377605096630 [-5.981e16]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   ├─ [0] console::log("deltaSpecified") [staticcall]
+    │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   ├─ [0] console::log(-5981737760509663 [-5.981e15]) [staticcall]
+    │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   ├─ [2020] PoolManager::sync(MockERC20: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7])
+    │   │   │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   ├─ [2852] MockERC20::transfer(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 5981737760509663 [5.981e15])
+    │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000088, to: PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 5981737760509663 [5.981e15])
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [4585] PoolManager::settle()
+    │   │   │   │   │   │   ├─ [0] console::log("recipient ", 0x0000000000000000000000000000000000000088) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 11963475521019326 [1.196e16]
+    │   │   │   │   │   │   ├─ [0] console::log("paid ", 5981737760509663 [5.981e15]) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   │   ├─ [0] console::log(0) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   │   │   └─ ← [Return] 0x575e24b400000000000000000000000000000000000000000000000000000000, -2035479883446581873507274526403918426581517060515299328 [-2.035e54], 0
+    │   │   │   │   ├─ [0] console::log("hookDeltaSpecified") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-5981737760509663 [-5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("amountToSwap ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-65799115365606293 [-6.579e16]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("beforeSwapDelta ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-2035479883446581873507274526403918426581517060515299328 [-2.035e54]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ emit Swap(id: 0xec8881f217809503e8a880a09db441162b7a05db7f38cb52c61ab0d76a7a9652, sender: PoolSwapTest: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], amount0: -6018336102428409 [-6.018e15], amount1: 5981737760509662 [5.981e15], sqrtPriceX96: 4295128740 [4.295e9], liquidity: 0, tick: -887272 [-8.872e5], fee: 100)
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(5981737760509663 [5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("swapDelta.amount0() ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-36598341918746 [-3.659e13]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("swapDelta.amount1() ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(5981737760509662 [5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(0) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(0) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   └─ ← [Return] -12453770413492689404993154446650554309352373937844514 [-1.245e52]
+    │   │   │   ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728726022218804310305 [5.789e76]
+    │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 11963475521019326 [1.196e16]
+    │   │   │   ├─ [859] PoolManager::exttload(0xc4607c572d15c02c9d5e3c9a699d7cae5085ac35127a07e6f45e370fb2cd8852) [staticcall]
+    │   │   │   │   └─ ← [Return] 0xffffffffffffffffffffffffffffffffffffffffffffffffffffdeb6c8d49fe6
+    │   │   │   ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   │   │   │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728786022218804310305 [5.789e76]
+    │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   └─ ← [Return] 5981737760509663 [5.981e15]
+    │   │   │   ├─ [859] PoolManager::exttload(0xafb78a466bfbede229e8d3ab04155194c9cffa88c40c7132e6ca03b19c2d736c) [staticcall]
+    │   │   │   │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000015405bda5acede
+    │   │   │   ├─ [0] console::log("deltaAfter0 ") [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [0] console::log(-36598341918746 [-3.659e13]) [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [0] console::log("deltaAfter1 ") [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [0] console::log(5981737760509662 [5.981e15]) [staticcall]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [2020] PoolManager::sync(MockERC20: [0x13aa49bAc059d709dd0a18D6bb63290076a702D7])
+    │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 11963475521019326 [1.196e16]
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   ├─ [5002] MockERC20::transferFrom(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 36598341918746 [3.659e13])
+    │   │   │   │   ├─ emit Transfer(from: CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], to: PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], amount: 36598341918746 [3.659e13])
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [4570] PoolManager::settle()
+    │   │   │   │   ├─ [0] console::log("recipient ", PoolSwapTest: [0x2e234DAe75C793f67A35089C9d99245E1C58470b]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   │   │   │   └─ ← [Return] 12000073862938072 [1.2e16]
+    │   │   │   │   ├─ [0] console::log("paid ", 36598341918746 [3.659e13]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(-36598341918746 [-3.659e13]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   └─ ← [Return] 36598341918746 [3.659e13]
+    │   │   │   ├─ [5302] PoolManager::take(MockERC20: [0x96d3F6c20EEd2697647F543fE6C08bC2Fbf39758], CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5981737760509662 [5.981e15])
+    │   │   │   │   ├─ [0] console::log("previous ") [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [0] console::log(5981737760509662 [5.981e15]) [staticcall]
+    │   │   │   │   │   └─ ← [Stop] 
+    │   │   │   │   ├─ [2852] MockERC20::transfer(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], 5981737760509662 [5.981e15])
+    │   │   │   │   │   ├─ emit Transfer(from: PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496], amount: 5981737760509662 [5.981e15])
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Stop] 
+    │   │   │   └─ ← [Return] 0xffffffffffffffffffffdeb6c8d49fe600000000000000000015405bda5acede
+    │   │   └─ ← [Return] 0xffffffffffffffffffffdeb6c8d49fe600000000000000000015405bda5acede
+    │   └─ ← [Return] -12453770413492689404993154446650554309352373937844514 [-1.245e52]
+    ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 12000073862938072 [1.2e16]
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:65 ~ currency0BalanceOfManagerAfterSwap:", 12000073862938072 [1.2e16]) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [525] MockERC20::balanceOf(PoolManager: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 1
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:67 ~ currency1BalanceOfManagerAfterSwap:", 1) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728725985620462391559 [5.789e76]
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:59 ~ currency0BalanceOfUserAfterSwap:", 57896044618658097711785492504343953926634992332820282019728725985620462391559 [5.789e76]) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [525] MockERC20::balanceOf(CustomAccountingTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 57896044618658097711785492504343953926634992332820282019728792003956564819967 [5.789e76]
+    ├─ [0] console::log("file: testUserGetTokenOneForFree.t.sol:61 ~ currency1BalanceOfUserAfterSwap:", 57896044618658097711785492504343953926634992332820282019728792003956564819967 [5.789e76]) [staticcall]
+    │   └─ ← [Stop] 
+    ├─ [0] VM::assertEq(1, 1, "test dummy") [staticcall]
+    │   └─ ← [Return] 
+    └─ ← [Return] 
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 25.20ms (19.52ms CPU time)
+
+Ran 1 test suite in 2.00s (25.20ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+\u$ 

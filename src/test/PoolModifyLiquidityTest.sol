@@ -11,7 +11,7 @@ import {Hooks} from "../libraries/Hooks.sol";
 import {LPFeeLibrary} from "../libraries/LPFeeLibrary.sol";
 import {CurrencySettler} from "../../test/utils/CurrencySettler.sol";
 import {StateLibrary} from "../libraries/StateLibrary.sol";
-
+import {console} from "forge-std/console.sol";
 contract PoolModifyLiquidityTest is PoolTestBase {
     using CurrencySettler for Currency;
     using Hooks for IHooks;
@@ -84,7 +84,10 @@ contract PoolModifyLiquidityTest is PoolTestBase {
             assert(delta0 < 0 || delta1 < 0);
             assert(!(delta0 > 0 || delta1 > 0));
         }
-
+        console.log("delta 0 in PoolModifyLiquidityTest.unlockCallback ");
+        console.logInt(delta0);
+        console.log("delta 1 in PoolModifyLiquidityTest.unlockCallback ");
+        console.logInt(delta1);
         if (delta0 < 0) data.key.currency0.settle(manager, data.sender, uint256(-delta0), data.settleUsingBurn);
         if (delta1 < 0) data.key.currency1.settle(manager, data.sender, uint256(-delta1), data.settleUsingBurn);
         if (delta0 > 0) data.key.currency0.take(manager, data.sender, uint256(delta0), data.takeClaims);

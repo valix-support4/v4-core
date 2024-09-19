@@ -15,7 +15,7 @@ import {ProtocolFeeLibrary} from "./ProtocolFeeLibrary.sol";
 import {LiquidityMath} from "./LiquidityMath.sol";
 import {LPFeeLibrary} from "./LPFeeLibrary.sol";
 import {CustomRevert} from "./CustomRevert.sol";
-
+import {console} from "forge-std/console.sol";
 /// @notice a library with all actions that can be performed on a pool
 library Pool {
     using SafeCast for *;
@@ -202,7 +202,8 @@ library Pool {
                 }
             }
         }
-
+        console.log("self.slot0.tick() before checking if (tick < tickLower)");
+        console.logInt(self.slot0.tick());
         if (liquidityDelta != 0) {
             Slot0 _slot0 = self.slot0;
             (int24 tick, uint160 sqrtPriceX96) = (_slot0.tick(), _slot0.sqrtPriceX96());

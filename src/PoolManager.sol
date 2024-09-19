@@ -25,7 +25,7 @@ import {CurrencyReserves} from "./libraries/CurrencyReserves.sol";
 import {Extsload} from "./Extsload.sol";
 import {Exttload} from "./Exttload.sol";
 import {CustomRevert} from "./libraries/CustomRevert.sol";
-
+import {console} from "forge-std/console.sol";
 //  4
 //   44
 //     444
@@ -100,10 +100,19 @@ contract PoolManager is IPoolManager, ProtocolFees, NoDelegateCall, ERC6909Claim
 
     /// @inheritdoc IPoolManager
     function unlock(bytes calldata data) external override returns (bytes memory result) {
+        // case 1
+        // ถูกเรียกมาจาก PoolSwapTest.swap
+
         if (Lock.isUnlocked()) AlreadyUnlocked.selector.revertWith();
-
+        // case 1
+        // if (false) ไม่ revert
+        
+        //เรียกไปยัง Lock.unlock ต่อ
         Lock.unlock();
-
+        
+        // case 1
+        // ทำการเรียก function unlockCallback บน contract ที่เรียกมาที่นี่
+        // นั่นคือ PoolSwapTest.unclockCallback
         // the caller does everything in this callback, including paying what they owe via calls to settle
         result = IUnlockCallback(msg.sender).unlockCallback(data);
 
@@ -191,17 +200,31 @@ contract PoolManager is IPoolManager, ProtocolFees, NoDelegateCall, ERC6909Claim
         noDelegateCall
         returns (BalanceDelta swapDelta)
     {
+        // case 1
+        // เรียกมาจาก PoolSwapTest.unlockCallback
         if (params.amountSpecified == 0) SwapAmountCannotBeZero.selector.revertWith();
+        // case 1 
+        // if (params.amountSpecified == 0)
+        // if (-100e6== 0)
+        // if (false) ไม่ revert
+
         PoolId id = key.toId();
         Pool.State storage pool = _getPool(id);
         pool.checkPoolInitialized();
+        // case 1 เช็คว่า pool มีจริงไหม
 
         BeforeSwapDelta beforeSwapDelta;
         {
             int256 amountToSwap;
             uint24 lpFeeOverride;
+            // case 1
+            // ไปเรียก lib Hooks.beforeSwap
             (amountToSwap, beforeSwapDelta, lpFeeOverride) = key.hooks.beforeSwap(key, params, hookData);
-
+            
+            console.log("amountToSwap ");
+            console.logInt(amountToSwap);
+            console.log("beforeSwapDelta ");
+            console.logInt(BeforeSwapDelta.unwrap(beforeSwapDelta));
             // execute swap, account protocol fees, and emit swap event
             // _swap is needed to avoid stack too deep error
             swapDelta = _swap(
@@ -223,7 +246,10 @@ contract PoolManager is IPoolManager, ProtocolFees, NoDelegateCall, ERC6909Claim
 
         // if the hook doesnt have the flag to be able to return deltas, hookDelta will always be 0
         if (hookDelta != BalanceDeltaLibrary.ZERO_DELTA) _accountPoolBalanceDelta(key, hookDelta, address(key.hooks));
-
+        console.log("swapDelta.amount0() ");
+        console.logInt(swapDelta.amount0());
+        console.log("swapDelta.amount1() ");
+        console.logInt(swapDelta.amount1());
         _accountPoolBalanceDelta(key, swapDelta, msg.sender);
     }
 
@@ -278,12 +304,25 @@ contract PoolManager is IPoolManager, ProtocolFees, NoDelegateCall, ERC6909Claim
 
     /// @inheritdoc IPoolManager
     function sync(Currency currency) external onlyWhenUnlocked {
+        // case 1
+        // เรียกมาจาก DeltaReturningHook.beforeSwap => ... => lib CurrencySettler.settle 
+        // โดย currency = address ของ token 0
         // address(0) is used for the native currency
         if (currency.isAddressZero()) {
+            // case 1
+            // if(false)
             // The reserves balance is not used for native settling, so we only need to reset the currency.
             CurrencyReserves.resetCurrency();
         } else {
+            // case 1 
+            // เข้า else
+            // ไปเข้า lib Currency.balanceOfSelf ต่อ
             uint256 balance = currency.balanceOfSelf();
+            // case 1 
+            // ได้ balance = token0.balanceOf(poolManager)
+            // ไปเรียก lib CurrencyReserves.syncCurrencyAndReserves ต่อ
+            // โดย currency = token 0
+            // balance = token0.balanceOf(poolManager)
             CurrencyReserves.syncCurrencyAndReserves(currency, balance);
         }
     }
@@ -299,6 +338,9 @@ contract PoolManager is IPoolManager, ProtocolFees, NoDelegateCall, ERC6909Claim
 
     /// @inheritdoc IPoolManager
     function settle() external payable onlyWhenUnlocked returns (uint256) {
+        // case 1
+        // เรียกมาจาก DeltaReturningHook.beforeSwap => ... => token0.settle()
+        // โดยใน case 1, msg.sender คือ DeltaReturningHook
         return _settle(msg.sender);
     }
 
@@ -347,26 +389,61 @@ contract PoolManager is IPoolManager, ProtocolFees, NoDelegateCall, ERC6909Claim
     }
 
     function _settle(address recipient) internal returns (uint256 paid) {
+        // case 1
+        // เรียกมาจาก DeltaReturningHook.beforeSwap => ... => PoolManager.settle()
+        // recipient = ?
+        console.log("recipient ", recipient);
         Currency currency = CurrencyReserves.getSyncedCurrency();
+        // case 1
+        // ดึงค่า address token0 ก่อนหน้านี้มา
 
         // if not previously synced, or the syncedCurrency slot has been reset, expects native currency to be settled
         if (currency.isAddressZero()) {
+            // case 1
+            // ไม่เข้า if นี้
             paid = msg.value;
         } else {
+            // case 1
+            // เข้า else
             if (msg.value > 0) NonzeroNativeValue.selector.revertWith();
+            // case 1
+            // msg.value == 0 ไม่ revert
+
             // Reserves are guaranteed to be set because currency and reserves are always set together
             uint256 reservesBefore = CurrencyReserves.getSyncedReserves();
+            // case 1
+            // reservesBefore = token0.balanceOf(poolManager)
             uint256 reservesNow = currency.balanceOfSelf();
+            // case 1
+            // reservesNow = token0.balanceOf(poolManager)
+            // จากตอนที่ save ค่า reservesBefore ไว้
+            // ทาง hook ได้จ่าย token0 จำนวนตาม hookDeltaSpecified เข้ามาที่ poolManager
+            // ดังนั้นควรจะได้ paid = hookDeltaSpecified
+            // confirmed
             paid = reservesNow - reservesBefore;
+            console.log("paid ", paid);
             CurrencyReserves.resetCurrency();
+            // case 1
+            // clear address token 0 ที่เก็บเอาไว้ออก
         }
-
+        // case 1
+        // currency = address 0
+        // paid = เงินที่ hook จ่ายเข้ามาที่ poolManager = 1e6
+        // recipient = address ของ hook
         _accountDelta(currency, paid.toInt128(), recipient);
+        // case 1 เก็บค่า 1e6 ใน storage slot key (address ของ hook, token0)
     }
 
     /// @notice Adds a balance delta in a currency for a target address
     function _accountDelta(Currency currency, int128 delta, address target) internal {
+        // case 1
+        // เรียกมาจาก hook.beforeSwap => ... => PoolManager._settle
+        // currency = address 0
+        // delta = เงินที่ hook จ่ายเข้ามาที่ poolManager = 1e6
+        // target = address ของ hook
         if (delta == 0) return;
+        // case 1
+        // delta != 0
 
         (int256 previous, int256 next) = currency.applyDelta(target, delta);
 
